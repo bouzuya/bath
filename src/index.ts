@@ -30,8 +30,7 @@ const path = (template: Template): PathFn => {
 };
 
 const params = (template: Template): ParamsFn => {
-  void template;
-  return () => ({});
+  return bath(template).params;
 };
 
 export default bath;
