@@ -22,6 +22,7 @@
     "url": "https://github.com/bouzuya/bath/issues"
   },
   "devDependencies": {
+    "@types/power-assert": "0.0.27",
     "babel-cli": "6.10.1",
     "babel-preset-es2015": "6.9.0",
     "beater": "0.4.1",
