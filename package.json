@@ -1,0 +1,65 @@
+{
+  "name": "bath",
+  "description": "A simple path template engine",
+  "version": "0.0.0",
+  "author": {
+    "name": "bouzuya",
+    "email": "m@bouzuya.net",
+    "url": "http://bouzuya.net/"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "beater": {
+    "dir": "./.tmp/es5/test/",
+    "require": [
+      "./scripts/enable-power-assert.js"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/bouzuya/bath/issues"
+  },
+  "devDependencies": {
+    "babel-cli": "6.10.1",
+    "babel-preset-es2015": "6.9.0",
+    "beater": "0.4.1",
+    "beater-cli": "0.2.4",
+    "cpx": "1.3.1",
+    "espower-loader": "1.0.0",
+    "npm-run-all": "2.2.0",
+    "power-assert": "1.4.1",
+    "proxyquire": "1.7.9",
+    "rimraf": "2.5.2",
+    "sinon": "1.17.4",
+    "typescript": "^2.0.0",
+    "watch": "0.19.1"
+  },
+  "files": [
+    "./lib/"
+  ],
+  "homepage": "https://github.com/bouzuya/bath#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bouzuya/bath.git"
+  },
+  "scripts": {
+    "build": "npm-run-all -s 'build:ts' 'build:es2015' -p 'copy:*'",
+    "build:es2015": "babel .tmp/es2015/ -d .tmp/es5/",
+    "build:ts": "tsc",
+    "clean": "rimraf .tmp/ lib/",
+    "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'lib/'",
+    "copy:js": "cpx '.tmp/es5/src/**/*.js' 'lib/'",
+    "prepublish": "npm-run-all -s 'clean' 'build'",
+    "start": "node ./lib/index.js",
+    "test": "beater",
+    "watch": "npm-run-all -p 'watch:*'",
+    "watch:es2015": "npm run build:es2015 -- --watch",
+    "watch:test": "watch --wait 2 'npm test' '.tmp/es5/test/'",
+    "watch:ts": "npm run build:ts -- --watch"
+  }
+}
