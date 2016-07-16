@@ -9,8 +9,11 @@ type Template = string;
 const bath = (template: Template): { path: PathFn; params: ParamsFn; } => {
   const keys: pathToRegexp.Key[] = [];
   const regexp = pathToRegexp(template, keys);
+  const compiled = pathToRegexp.compile(template);
 
-  const path: PathFn = () => template;
+  const path: PathFn = (params?: Params): Path => {
+    return compiled(params);
+  };
 
   const params: ParamsFn = (path: string): Params | undefined => {
     const match = regexp.exec(path);
@@ -26,7 +29,7 @@ const bath = (template: Template): { path: PathFn; params: ParamsFn; } => {
 };
 
 const path = (template: Template): PathFn => {
-  return () => template;
+  return bath(template).path;
 };
 
 const params = (template: Template): ParamsFn => {
