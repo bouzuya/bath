@@ -46,8 +46,11 @@ type bath = (tempate: Template) => {
 
 ## Badges
 
+[![npm version][npm-badge-url]][npm-url]
 [![Travis CI][travisci-badge-url]][travisci-url]
 
+[npm-badge-url]: https://badge.fury.io/js/bath.svg
+[npm-url]: https://www.npmjs.com/package/bath
 [travisci-badge-url]: https://travis-ci.org/bouzuya/bath.svg?branch=master
 [travisci-url]: https://travis-ci.org/bouzuya/bath
 
