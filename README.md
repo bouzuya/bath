@@ -42,6 +42,13 @@ type bath = (tempate: Template) => {
 };
 ```
 
+## Badges
+
+[![Travis CI][travisci-badge-url]][travisci-url]
+
+[travisci-badge-url]: https://travis-ci.org/bouzuya/bath.svg?branch=master
+[travisci-url]: https://travis-ci.org/bouzuya/bath
+
 ## License
 
 [MIT](LICENSE)
