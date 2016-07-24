@@ -2,6 +2,8 @@
 
 A simple path template engine.
 
+Twitter hashtag is [#bathjs](https://twitter.com/hashtag/bathjs).
+
 ## Installation
 
 ```bash
