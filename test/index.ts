@@ -9,42 +9,34 @@ test('bath > path', () => {
   assert(path({ id: '123' }) === '/users/123');
 });
 
-test('bath > params > `/users`', () => {
-  const { params } = bath('/users');
-  const data: [string, {} | undefined][] = [
-    ['/', undefined],
-    ['/users', {}],
-    ['/users/', {}], // strict: false
-    ['/users/123', undefined],
-    ['/users/123/', undefined],
-    ['/users/123/edit', undefined],
-    ['/USERS', {}], // sensitive: false
-    ['/USERS/', {}], // sensitive: false && strict: false
-    ['/USERS/123', undefined],
-    ['/USERS/123/', undefined],
-    ['/USERS/123/edit', undefined]
+test('bath > params', () => {
+  const data: [string, string, {} | undefined][] = [
+    ['/users', '/', undefined],
+    ['/users', '/users', {}],
+    ['/users', '/users/', {}], // strict: false
+    ['/users', '/users/123', undefined],
+    ['/users', '/users/123 / ', undefined],
+    ['/users', '/users/123 / edit', undefined],
+    ['/users', '/USERS', {}], // sensitive: false
+    ['/users', '/USERS/', {}], // sensitive: false && strict: false
+    ['/users', '/USERS/123', undefined],
+    ['/users', '/USERS/123 / ', undefined],
+    ['/users', '/USERS/123 / edit', undefined],
+    ['/users/:id', '/', undefined],
+    ['/users/:id', '/users', undefined],
+    ['/users/:id', '/users/', undefined], // strict: false
+    ['/users/:id', '/users/123', { id: '123' }],
+    ['/users/:id', '/users/123/', { id: '123' }],
+    ['/users/:id', '/users/123/edit', undefined],
+    ['/users/:id', '/USERS', undefined],
+    ['/users/:id', '/USERS/', undefined],
+    ['/users/:id', '/USERS/123', { id: '123' }], // sensitive: false
+    // sensitive: false && strict: false
+    ['/users/:id', '/USERS/123/', { id: '123' }],
+    ['/users/:id', '/USERS/123/edit', undefined]
   ];
-  data.forEach(([path, result]) => {
-    assert.deepEqual(params(path), result);
-  });
-});
-
-test('bath > params > `/users/:id`', () => {
-  const { params } = bath('/users/:id');
-  const data: [string, {} | undefined][] = [
-    ['/', undefined],
-    ['/users', undefined],
-    ['/users/', undefined], // strict: false
-    ['/users/123', { id: '123' }],
-    ['/users/123/', { id: '123' }],
-    ['/users/123/edit', undefined],
-    ['/USERS', undefined],
-    ['/USERS/', undefined],
-    ['/USERS/123', { id: '123' }], // sensitive: false
-    ['/USERS/123/', { id: '123' }], // sensitive: false && strict: false
-    ['/USERS/123/edit', undefined]
-  ];
-  data.forEach(([path, result]) => {
+  data.forEach(([template, path, result]) => {
+    const { params } = bath(template);
     assert.deepEqual(params(path), result);
   });
 });
