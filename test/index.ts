@@ -11,31 +11,40 @@ test('bath > path', () => {
 
 test('bath > params > `/users`', () => {
   const { params } = bath('/users');
-  assert.deepEqual(params('/'), undefined);
-  assert.deepEqual(params('/users'), {});
-  assert.deepEqual(params('/users/'), {}); // strict: false
-  assert.deepEqual(params('/users/123'), undefined);
-  assert.deepEqual(params('/users/123/'), undefined);
-  assert.deepEqual(params('/users/123/edit'), undefined);
-  assert.deepEqual(params('/USERS'), {}); // sensitive: false
-  assert.deepEqual(params('/USERS/'), {}); // strict: false && sensitive: false
-  assert.deepEqual(params('/USERS/123'), undefined);
-  assert.deepEqual(params('/USERS/123/'), undefined);
-  assert.deepEqual(params('/USERS/123/edit'), undefined);
+  const data: [string, {} | undefined][] = [
+    ['/', undefined],
+    ['/users', {}],
+    ['/users/', {}], // strict: false
+    ['/users/123', undefined],
+    ['/users/123/', undefined],
+    ['/users/123/edit', undefined],
+    ['/USERS', {}], // sensitive: false
+    ['/USERS/', {}], // sensitive: false && strict: false
+    ['/USERS/123', undefined],
+    ['/USERS/123/', undefined],
+    ['/USERS/123/edit', undefined]
+  ];
+  data.forEach(([path, result]) => {
+    assert.deepEqual(params(path), result);
+  });
 });
 
 test('bath > params > `/users/:id`', () => {
   const { params } = bath('/users/:id');
-  assert.deepEqual(params('/'), undefined);
-  assert.deepEqual(params('/users'), undefined);
-  assert.deepEqual(params('/users/'), undefined);
-  assert.deepEqual(params('/users/123'), { id: '123' });
-  assert.deepEqual(params('/users/123/'), { id: '123' }); // strict: false
-  assert.deepEqual(params('/users/123/edit'), undefined);
-  assert.deepEqual(params('/USERS'), undefined);
-  assert.deepEqual(params('/USERS/'), undefined);
-  assert.deepEqual(params('/USERS/123'), { id: '123' }); // sensitive: false
-  // strict: false && sensitive: false
-  assert.deepEqual(params('/USERS/123/'), { id: '123' });
-  assert.deepEqual(params('/USERS/123/edit'), undefined);
+  const data: [string, {} | undefined][] = [
+    ['/', undefined],
+    ['/users', undefined],
+    ['/users/', undefined], // strict: false
+    ['/users/123', { id: '123' }],
+    ['/users/123/', { id: '123' }],
+    ['/users/123/edit', undefined],
+    ['/USERS', undefined],
+    ['/USERS/', undefined],
+    ['/USERS/123', { id: '123' }], // sensitive: false
+    ['/USERS/123/', { id: '123' }], // sensitive: false && strict: false
+    ['/USERS/123/edit', undefined]
+  ];
+  data.forEach(([path, result]) => {
+    assert.deepEqual(params(path), result);
+  });
 });
