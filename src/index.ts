@@ -18,11 +18,10 @@ const bath = (template: Template): { path: PathFn; params: ParamsFn; } => {
   const params: ParamsFn = (path: string): Params | undefined => {
     const match = regexp.exec(path);
     if (match === null) return void 0;
-    const parsed: { [name: string]: string; } = {};
-    for (let i = 1; i < match.length; i++) {
-      parsed[keys[i - 1].name] = match[i];
-    }
-    return parsed;
+    return match
+      .slice(1)
+      .map((v, i) => ({ [keys[i].name]: v }))
+      .reduce((a, x) => Object.assign(a, x), {});
   };
 
   return { path, params };
