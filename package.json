@@ -22,7 +22,7 @@
     "url": "https://github.com/bouzuya/bath/issues"
   },
   "dependencies": {
-    "path-to-regexp": "1.5.3"
+    "path-to-regexp": "1.7.0"
   },
   "devDependencies": {
     "@types/power-assert": "1.4.29",
