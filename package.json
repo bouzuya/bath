@@ -31,7 +31,7 @@
     "beater": "0.4.1",
     "beater-cli": "0.2.4",
     "cpx": "1.5.0",
-    "espower-loader": "1.0.0",
+    "espower-loader": "1.2.0",
     "npm-run-all": "4.0.2",
     "power-assert": "1.4.2",
     "proxyquire": "1.7.11",
