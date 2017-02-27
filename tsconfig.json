@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "./lib",
     "module": "commonjs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
