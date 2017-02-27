@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@types/power-assert": "1.4.29",
-    "babel-cli": "6.10.1",
-    "babel-preset-es2015": "6.9.0",
+    "babel-cli": "6.22.0",
+    "babel-preset-es2015": "6.22.0",
     "beater": "0.4.1",
     "beater-cli": "0.2.4",
     "cpx": "1.5.0",
