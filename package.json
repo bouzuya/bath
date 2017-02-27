@@ -35,7 +35,7 @@
     "npm-run-all": "4.0.2",
     "power-assert": "1.4.1",
     "proxyquire": "1.7.9",
-    "rimraf": "2.5.2",
+    "rimraf": "2.6.1",
     "sinon": "1.17.4",
     "typescript": "^2.0.0",
     "watch": "1.0.2"
