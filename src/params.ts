@@ -11,10 +11,10 @@ interface Parameter {
 const params = (
   template: string,
   params?: { [name: string]: RegExp; }
-): (pathname: string) => { [name: string]: string; } | undefined => {
-  const notFound = void 0;
+): (pathname: string) => { [name: string]: string; } | null => {
+  const notFound = null;
   const { pathPattern, parameters } = inputToPattern(template, params);
-  return (pathname: string): { [name: string]: string; } | undefined => {
+  return (pathname: string): { [name: string]: string; } | null => {
     const m = pathname.match(pathPattern);
     if (m === null) return notFound;
     const parameterValues = m.slice(1);
