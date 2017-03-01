@@ -46,6 +46,19 @@ test(category + 'template with parameters', () => {
   assert.deepEqual(p('/users/a/posts/1/'), null);
 });
 
+test(category + 'template with strict parameters', () => {
+  const p = params(
+    '/users/{userId}/posts/{id}',
+    { userId: /^\w+$/, id: /^\d+$/ }
+  );
+  assert.deepEqual(p('/users'), null);
+  assert.deepEqual(p('/users/a'), null);
+  assert.deepEqual(p('/users/a/posts/'), null);
+  assert.deepEqual(p('/users/a/posts/1'), { userId: 'a', id: '1' });
+  assert.deepEqual(p('/users//posts/'), null);
+  assert.deepEqual(p('/users/a/posts/1/'), null);
+});
+
 test(category + 'template with duplicated parameters', () => {
   const p = params('/users/{id}/posts/{id}');
   assert.deepEqual(p('/users'), null);
@@ -54,19 +67,6 @@ test(category + 'template with duplicated parameters', () => {
   assert.deepEqual(p('/users/a/posts/b'), null);
   assert.deepEqual(p('/users//posts/'), { id: '' });
   assert.deepEqual(p('/users/%20/posts/%20'), { id: ' ' });
-});
-
-test(category + 'template with strict parameters', () => {
-  const p = params(
-    '/users/{userId}/posts/{id}',
-    { userId: /^\w+$/, id: /^\d+$/ }
-  );
-  assert.deepEqual(p('/users'), null);
-  assert.deepEqual(p('/users/'), null);
-  assert.deepEqual(p('/users/a'), null);
-  assert.deepEqual(p('/users/a/'), null);
-  assert.deepEqual(p('/users/a/posts/'), null);
-  assert.deepEqual(p('/users/a/posts/1'), { userId: 'a', id: '1' });
 });
 
 test(category + 'parameter pattern is passed the decoded value', () => {
