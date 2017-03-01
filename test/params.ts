@@ -52,6 +52,19 @@ test(category + 'template with parameters', () => {
   assert.deepEqual(p('/users//posts/'), { userId: '', id: '' });
 });
 
+test(category + 'template with duplicated parameters', () => {
+  const p = params('/users/{id}/posts/{id}');
+  assert.deepEqual(p('/users'), undefined);
+  assert.deepEqual(p('/users/'), undefined);
+  assert.deepEqual(p('/users/a'), undefined);
+  assert.deepEqual(p('/users/a/'), undefined);
+  assert.deepEqual(p('/users/a/posts/a'), { id: 'a' });
+  assert.deepEqual(p('/users/a/posts/b'), undefined);
+  assert.deepEqual(p('/users/a/posts/'), undefined);
+  assert.deepEqual(p('/users//posts/b'), undefined);
+  assert.deepEqual(p('/users//posts/'), { id: '' });
+});
+
 test(category + 'template with strict parameters', () => {
   const p = params(
     '/users/{userId}/posts/{id}',

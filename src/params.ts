@@ -18,19 +18,23 @@ const params = (
     const m = pathname.match(pathPattern);
     if (m === null) return notFound;
     const parameterValues = m.slice(1);
-    const results = parameterValues
+    const npvs = parameterValues
       .map((value) => decodeURIComponent(value))
       .map((value, i) => {
         const { name, pattern } = parameters[i];
-        return pattern === null || value.match(pattern) !== null
-          ? { [name]: value }
-          : notFound;
-      })
-      .filter((i) => i !== null)
+        return { name, pattern, value }; // npv
+      });
+    const hasUnmatchParameter = npvs.some(({ pattern, value }) => {
+      return pattern !== null && value.match(pattern) === null;
+    });
+    if (hasUnmatchParameter) return notFound;
+    const hasInvalidDuplicatedParameter = npvs.some(({ name, value }) => {
+      return npvs.some(({ name: n, value: v }) => n === name && v !== value);
+    });
+    if (hasInvalidDuplicatedParameter) return notFound;
+    return npvs
+      .map(({ name, value }) => ({ [name]: value }))
       .reduce((a, x) => Object.assign(a, x), {});
-    return parameterValues.length === Object.keys(results).length
-      ? results
-      : notFound;
   };
 };
 
@@ -52,7 +56,7 @@ const inputToPattern = (
       : userPattern.pattern;
     return { name, pattern };
   });
-  return { pathPattern, parameters: parameters };
+  return { pathPattern, parameters };
 };
 
 const ensureUserParameterPatterns = (
