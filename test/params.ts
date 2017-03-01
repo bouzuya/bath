@@ -64,3 +64,15 @@ test(category + 'template with strict parameters', () => {
   assert.deepEqual(p('/users/a/posts/'), undefined);
   assert.deepEqual(p('/users/a/posts/1'), { userId: 'a', id: '1' });
 });
+
+test(category + 'path can contain the encoded value', () => {
+  const p = params('/users/{id}');
+  assert.deepEqual(p('/users/%20'), { id: ' ' });
+});
+
+test(category + 'parameter pattern is passed the dencoded value', () => {
+  const p1 = params('/users/{id}', { id: /^ $/ } );
+  assert.deepEqual(p1('/users/%20'), { id: ' ' });
+  const p2 = params('/users/{id}', { id: /^%20$/ } );
+  assert.deepEqual(p2('/users/%20'), undefined);
+});

@@ -19,6 +19,7 @@ const params = (
     if (m === null) return notFound;
     const parameterValues = m.slice(1);
     const results = parameterValues
+      .map((value) => decodeURIComponent(value))
       .map((value, i) => {
         const { name, pattern } = parameters[i];
         return pattern === null || value.match(pattern) !== null
