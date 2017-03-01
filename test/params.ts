@@ -69,6 +69,18 @@ test(category + 'template with duplicated parameters', () => {
   assert.deepEqual(p('/users/%20/posts/%20'), { id: ' ' });
 });
 
+// don't use this behavior.
+test(category + 'no separator (`/`)', () => {
+  const p1 = params('/{x}{y}');
+  assert.deepEqual(p1('/'), { x: '', y: '' });
+  assert.deepEqual(p1('/a'), { x: 'a', y: '' });
+  assert.deepEqual(p1('/a1'), { x: 'a1', y: '' });
+  const p2 = params('/{x}{y}', { x: /\w/, y: /\d/ });
+  assert.deepEqual(p2('/'), null);
+  assert.deepEqual(p2('/a'), null);
+  assert.deepEqual(p2('/a1'), null); // no match (x: 'a1', y: '')
+});
+
 test(category + 'parameter pattern is passed the decoded value', () => {
   const p1 = params('/users/{id}', { id: /^ $/ } );
   assert.deepEqual(p1('/users/%20'), { id: ' ' });
