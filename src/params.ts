@@ -1,24 +1,31 @@
 import {
   pathTempalteToParameterNames
 } from './_/path-template-to-parameter-names';
+import {
+  ParametersFn,
+  ParameterPatterns,
+  PathTemplate
+} from './types';
+
+type PathPattern = RegExp;
 
 interface Pattern {
-  pathPattern: RegExp;
-  parameters: Parameter[];
+  pathPattern: PathPattern;
+  parameters: ParameterPattern[];
 }
 
-interface Parameter {
+interface ParameterPattern {
   name: string;
   pattern: RegExp | null;
 }
 
 const params = (
-  template: string,
-  params?: { [name: string]: RegExp; }
-): (pathname: string) => { [name: string]: string; } | null => {
+  template: PathTemplate,
+  patterns?: ParameterPatterns
+): ParametersFn => {
   const notFound = null;
-  const { pathPattern, parameters } = inputToPattern(template, params);
-  return (pathname: string): { [name: string]: string; } | null => {
+  const { pathPattern, parameters } = inputToPattern(template, patterns);
+  return (pathname) => {
     const m = pathname.match(pathPattern);
     if (m === null) return notFound;
     const parameterValues = m.slice(1);
@@ -47,10 +54,10 @@ const params = (
 //    , parameters: [{ name: 'id', pattern: /^\d+$/ }]
 //    }
 const inputToPattern = (
-  template: string,
-  params: { [name: string]: RegExp; } | undefined
+  template: PathTemplate,
+  patterns: ParameterPatterns | undefined
 ): Pattern => {
-  const userParameterPatterns = ensureUserParameterPatterns(params);
+  const userParameterPatterns = ensureUserParameterPatterns(patterns);
   const pathPattern = pathTemplateToPathPattern(template);
   const parameterNames = pathTempalteToParameterNames(template);
   const parameters = parameterNames.map((name) => {
@@ -64,13 +71,13 @@ const inputToPattern = (
 };
 
 const ensureUserParameterPatterns = (
-  params: { [name: string]: RegExp; } | undefined
-): Parameter[] => {
-  if (typeof params === 'undefined') return [];
+  patterns: ParameterPatterns | undefined
+): ParameterPattern[] => {
+  if (typeof patterns === 'undefined') return [];
   return Object
-    .keys(params)
+    .keys(patterns)
     .map((name) => {
-      const patternOrUndefined = params[name];
+      const patternOrUndefined = patterns[name];
       const pattern = typeof patternOrUndefined === 'undefined'
         ? null
         : patternOrUndefined;
@@ -79,7 +86,7 @@ const ensureUserParameterPatterns = (
 };
 
 // '/users/{id}' -> /^\/users\/[^\/]*$/
-const pathTemplateToPathPattern = (template: string): RegExp => {
+const pathTemplateToPathPattern = (template: PathTemplate): PathPattern => {
   return new RegExp(
     '^' + template.replace(/\{[A-Za-z0-9_]+\}/g, '([^\\/]*)') + '$'
   );
