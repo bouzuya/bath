@@ -14,7 +14,7 @@ test(category + 'template without parameters', () => {
 test(category + 'template with parameter', () => {
   const p = path('/users/{id}');
   assert(p({}) === null);
-  assert(p({ id: '' }) === '/users/123');
+  assert(p({ id: '' }) === '/users/');
   assert(p({ id: ' ' }) === '/users/%20');
   assert(p({ id: '123' }) === '/users/123');
   assert(p({ id: 'abc' }) === '/users/abc');
@@ -25,7 +25,7 @@ test(category + 'template with strict parameter', () => {
   assert(p({}) === null);
   assert(p({ id: '' }) === null);
   assert(p({ id: ' ' }) === null);
-  assert(p({ id: '123' }), '/users/123');
+  assert(p({ id: '123' }) === '/users/123');
   assert(p({ id: 'abc' }) === null);
 });
 
