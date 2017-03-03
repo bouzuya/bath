@@ -41,12 +41,18 @@
     "watch": "1.0.2"
   },
   "files": [
-    "lib"
+    "_",
+    "index.d.ts",
+    "index.js",
+    "params.d.ts",
+    "params.js",
+    "path.d.ts",
+    "path.js"
   ],
   "homepage": "https://github.com/bouzuya/bath#readme",
   "keywords": [],
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/bouzuya/bath.git"
@@ -55,12 +61,11 @@
     "build": "npm-run-all -s 'build:ts' 'build:es2015' 'copy'",
     "build:es2015": "babel .tmp/es2015/ -d .tmp/es5/",
     "build:ts": "tsc",
-    "clean": "rimraf .tmp/ lib/",
+    "clean": "rimraf '*.d.ts' '*.js' '.tmp' 'lib'",
     "copy": "npm-run-all -p 'copy:*'",
-    "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'lib/'",
-    "copy:js": "cpx '.tmp/es5/src/**/*.js' 'lib/'",
+    "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' '.'",
+    "copy:js": "cpx '.tmp/es5/src/**/*.js' '.'",
     "prepublish": "npm-run-all -s 'clean' 'build'",
-    "start": "node ./lib/index.js",
     "test": "beater",
     "watch": "npm-run-all -p 'watch:*'",
     "watch:es2015": "npm run build:es2015 -- --watch",
