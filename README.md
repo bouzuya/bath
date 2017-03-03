@@ -18,9 +18,9 @@ $ npm install bath
 import assert from 'assert';
 import bath from 'bath';
 
-const { path, params } = bath('/users/:id');
+const { path, params } = bath('/users/{id}');
 
-assert(path({ id: '123' }) === '/users/123');
+assert.deepEqual(path({ id: '123' }), '/users/123');
 assert.deepEqual(params('/users/123'), { id: '123' });
 ```
 
@@ -28,22 +28,56 @@ assert.deepEqual(params('/users/123'), { id: '123' });
 import assert from 'assert';
 import { path, params } from 'bath';
 
-assert(path('/users/:id')({ id: '123' }) === '/users/123');
-assert.deepEqual(params('/users/:id')('/users/123'), { id: '123' });
+const template = '/users/{id}';
+assert.deepEqual(path(template)({ id: '123' }), '/users/123');
+assert.deepEqual(params(template)('/users/123'), { id: '123' });
+```
+
+```ts
+import assert from 'assert';
+import { path } from 'bath/path';     // import `path()` only
+import { params } from 'bath/params'; // import `params()` only
+
+const template = '/users/{id}';
+assert.deepEqual(path(template)({ id: '123' }), '/users/123');
+assert.deepEqual(params(template)('/users/123'), { id: '123' });
 ```
 
 ## Types
 
 ```ts
-type Path = string;
-type PathFn = (params?: Params) => Path;
-type Params = { [key: string]: string; };
-type ParamsFn = (path: Path) => Params | undefined;
-type Template = string;
-type bath = (tempate: Template) => {
-  path: PathFn;
-  params: ParamsFn;
-};
+// '/users/{userId}/messages/{messageId}'
+export type PathTemplate = string;
+
+// 'userId'
+export type ParameterName = string;
+
+// { 'userId': /^\w+$/, 'messageId': /^\d+$/ }
+export type ParameterPatterns = { [parameterName: string]: RegExp; };
+
+// { 'userId': 'john', 'messageId': '123' }
+export type Parameters = { [parameterName: string]: string; };
+
+// '/users/john/messages/123'
+export type Path = string;
+
+// assert.deepEqual(
+//   params('/users/john/messages/123'),
+//   { 'userId': 'john', 'messageId': '123' }
+// );
+export type ParametersFn = (path: Path) => Parameters | null;
+
+// assert.deepEqual(
+//   path({ 'userId': 'john', 'messageId': '123' }),
+//   '/users/john/messages/123'
+// );
+export type PathFn = (params: Parameters) => Path | null;
+
+// const { params, path } = bath('/users/{userId}/messages/{messageId}')
+export type Bath = (
+  template: PathTemplate,
+  patterns?: ParameterPatterns
+) => { path: PathFn, params: ParametersFn };
 ```
 
 ## Badges
