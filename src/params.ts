@@ -2,18 +2,16 @@ import {
   pathTempalteToParameterNames
 } from './_/path-template-to-parameter-names';
 import {
+  NPV,
+  ParameterPattern,
   ParameterPatterns,
   Parameters,
   ParametersFn,
   Path,
-  PathTemplate
-} from './types';
-
-type PathPattern = RegExp;
-type ParameterPattern = NP[];
-type NP = { name: string; } & { pattern: RegExp | null; };
-type V = { value: string; };
-type NPV = NP & V;
+  PathPattern,
+  PathTemplate,
+  V
+} from './_/types';
 
 const params = (
   template: PathTemplate,
