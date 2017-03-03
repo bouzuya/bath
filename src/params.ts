@@ -1,6 +1,6 @@
 import {
-  pathTempalteToParameterNames
-} from './_/path-template-to-parameter-names';
+  toParameterPattern
+} from './_/to-parameter-pattern';
 import {
   NPV,
   ParameterPattern,
@@ -64,34 +64,6 @@ const matchPathPattern = (
   if (m === null) return null;
   const vs = m.slice(1).map((value) => ({ value }));
   return vs;
-};
-
-// '/users/{id}', { 'id': /^\d+$/ }
-// -> parameters: [{ name: 'id', pattern: /^\d+$/ }]
-const toParameterPattern = (
-  template: PathTemplate,
-  patterns: ParameterPatterns | undefined
-): ParameterPattern => {
-  const userParameterPatterns = typeof patterns === 'undefined'
-    ? []
-    : Object
-      .keys(patterns)
-      .map((name) => {
-        const patternOrUndefined = patterns[name];
-        const pattern = typeof patternOrUndefined === 'undefined'
-          ? null
-          : patternOrUndefined;
-        return { name, pattern };
-      });
-  const parameterNames = pathTempalteToParameterNames(template);
-  const parameters = parameterNames.map((name) => {
-    const userPattern = userParameterPatterns.find(({ name: n }) => n === name);
-    const pattern = typeof userPattern === 'undefined'
-      ? null
-      : userPattern.pattern;
-    return { name, pattern };
-  });
-  return parameters;
 };
 
 // '/users/{id}' -> /^\/users\/[^\/]*$/
