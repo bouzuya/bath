@@ -18,29 +18,29 @@ $ npm install bath
 import assert from 'assert';
 import bath from 'bath';
 
-const { path, params } = bath('/users/{id}');
+const { params, path } = bath('/users/{id}');
 
-assert.deepEqual(path({ id: '123' }), '/users/123');
 assert.deepEqual(params('/users/123'), { id: '123' });
+assert.deepEqual(path({ id: '123' }), '/users/123');
 ```
 
 ```ts
 import assert from 'assert';
-import { path, params } from 'bath';
+import { params, path } from 'bath';
 
 const template = '/users/{id}';
-assert.deepEqual(path(template)({ id: '123' }), '/users/123');
 assert.deepEqual(params(template)('/users/123'), { id: '123' });
+assert.deepEqual(path(template)({ id: '123' }), '/users/123');
 ```
 
 ```ts
 import assert from 'assert';
-import { path } from 'bath/path';     // import `path()` only
 import { params } from 'bath/params'; // import `params()` only
+import { path } from 'bath/path';     // import `path()` only
 
 const template = '/users/{id}';
-assert.deepEqual(path(template)({ id: '123' }), '/users/123');
 assert.deepEqual(params(template)('/users/123'), { id: '123' });
+assert.deepEqual(path(template)({ id: '123' }), '/users/123');
 ```
 
 ## Types
