@@ -1,7 +1,7 @@
 import {
   pathTempalteToParameterNames
 } from './_/path-template-to-parameter-names';
-import { ParameterPatterns, PathFn, PathTemplate } from './types';
+import { ParameterPatterns, PathFn, PathTemplate } from './_/types';
 import {
   toParameterPattern
 } from './_/to-parameter-pattern';

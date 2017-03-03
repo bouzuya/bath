@@ -1,4 +1,4 @@
-import { ParameterName, PathTemplate } from '../types';
+import { ParameterName, PathTemplate } from './types';
 
 // '/users/{id}' -> ['id']
 const pathTempalteToParameterNames = (

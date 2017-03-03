@@ -1,6 +1,6 @@
 import { params as paramsFn } from './params';
 import { path as pathFn } from './path';
-import { Bath } from './types';
+import { Bath } from './_/types';
 
 const bath: Bath = (template, patterns?) => {
   const path = pathFn(template, patterns);
