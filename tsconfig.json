@@ -20,6 +20,7 @@
     "./src/index.ts",
     "./src/params.ts",
     "./src/path.ts",
+    "./test/index.ts",
     "./test/params.ts",
     "./test/path.ts"
   ]
