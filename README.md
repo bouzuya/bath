@@ -80,6 +80,12 @@ export type Bath = (
 ) => { path: PathFn, params: ParametersFn };
 ```
 
+## Related Project
+
+- [bouzuya/spa-town][] ... A simple router based on bath.
+
+[bouzuya/spa-town]: https://github.com/bouzuya/spa-town
+
 ## Badges
 
 [![npm version][npm-badge-url]][npm-url]
