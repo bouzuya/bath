@@ -1,0 +1,7 @@
+*.log
+.tmp/
+/*.d.ts
+/*.js
+/_/
+lib/
+node_modules/
