@@ -18,27 +18,30 @@ $ npm install bath
 import assert from 'assert';
 import bath from 'bath';
 
-const { params, path } = bath('/users/{id}');
-
+const { names, params, path } = bath('/users/{id}');
+assert.deepEqual(names, ['id']);
 assert.deepEqual(params('/users/123'), { id: '123' });
 assert.deepEqual(path({ id: '123' }), '/users/123');
 ```
 
 ```ts
 import assert from 'assert';
-import { params, path } from 'bath';
+import { names, params, path } from 'bath';
 
 const template = '/users/{id}';
+assert.deepEqual(names(template), ['id']);
 assert.deepEqual(params(template)('/users/123'), { id: '123' });
 assert.deepEqual(path(template)({ id: '123' }), '/users/123');
 ```
 
 ```ts
 import assert from 'assert';
+import { names } from 'bath/names'; // import `names()` only
 import { params } from 'bath/params'; // import `params()` only
 import { path } from 'bath/path';     // import `path()` only
 
 const template = '/users/{id}';
+assert.deepEqual(names(template), ['id']);
 assert.deepEqual(params(template)('/users/123'), { id: '123' });
 assert.deepEqual(path(template)({ id: '123' }), '/users/123');
 ```
@@ -77,7 +80,7 @@ export type PathFn = (params: Parameters) => Path | null;
 export type Bath = (
   template: PathTemplate,
   patterns?: ParameterPatterns
-) => { path: PathFn, params: ParametersFn };
+) => { names: ParameterName[]; path: PathFn; params: ParametersFn; };
 ```
 
 ## Related Project
