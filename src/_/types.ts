@@ -29,7 +29,7 @@ export type PathFn = (params: Parameters) => Path | null;
 export type Bath = (
   template: PathTemplate,
   patterns?: ParameterPatterns
-) => { path: PathFn, params: ParametersFn };
+) => { names: ParameterName[]; path: PathFn; params: ParametersFn; };
 
 // internal types
 
