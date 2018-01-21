@@ -9,24 +9,20 @@
   },
   "babel": {
     "presets": [
-      "es2015"
-    ]
-  },
-  "beater": {
-    "dir": "./.tmp/es5/test/",
-    "require": [
-      "./scripts/enable-power-assert.js"
+      "es2015",
+      "power-assert"
     ]
   },
   "bugs": {
     "url": "https://github.com/bouzuya/bath/issues"
   },
   "devDependencies": {
+    "@types/node": "^9.3.0",
     "@types/power-assert": "1.4.29",
     "babel-cli": "6.22.0",
     "babel-preset-es2015": "6.22.0",
-    "beater": "0.4.1",
-    "beater-cli": "0.2.4",
+    "babel-preset-power-assert": "^2.0.0",
+    "beater": "^5.0.1",
     "cpx": "1.5.0",
     "espower-loader": "1.2.0",
     "npm-run-all": "4.0.2",
@@ -63,7 +59,7 @@
     "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' '.'",
     "copy:js": "cpx '.tmp/es5/src/**/*.js' '.'",
     "prepublish": "npm-run-all -s 'clean' 'build'",
-    "test": "beater",
+    "test": "node .tmp/es5/test/index.js",
     "watch": "npm-run-all -p 'watch:*'",
     "watch:es2015": "npm run build:es2015 -- --watch",
     "watch:test": "watch --wait 2 'npm test' '.tmp/es5/test/'",
