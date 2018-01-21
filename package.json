@@ -52,7 +52,7 @@
   },
   "scripts": {
     "build": "npm-run-all -s 'build:ts' 'build:es2015' 'copy'",
-    "build:es2015": "babel .tmp/es2015/ -d .tmp/es5/",
+    "build:es2015": "babel --quiet -d .tmp/es5/ .tmp/es2015/",
     "build:ts": "tsc",
     "clean": "rimraf '*.d.ts' '*.js' '.tmp' 'lib'",
     "copy": "npm-run-all -p 'copy:*'",
