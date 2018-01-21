@@ -36,6 +36,8 @@
     "_",
     "index.d.ts",
     "index.js",
+    "names.d.ts",
+    "names.js",
     "params.d.ts",
     "params.js",
     "path.d.ts",
