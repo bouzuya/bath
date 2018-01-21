@@ -2,6 +2,7 @@ import * as assert from 'power-assert';
 import { Test, run, test } from 'beater';
 import bathFn from '../src/';
 import * as bath from '../src/';
+import { tests as namesTests } from './names';
 import { tests as paramsTests } from './params';
 import { tests as pathTests } from './path';
 
@@ -75,6 +76,6 @@ const tests: Test[] = [
       if (parameters !== null) assert.deepEqual(pathFn(parameters), path);
     });
   })
-].concat(paramsTests).concat(pathTests);
+].concat(namesTests).concat(paramsTests).concat(pathTests);
 
 run(tests).catch(() => process.exit(1));
