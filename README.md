@@ -93,11 +93,14 @@ export type Bath = (
 
 [![npm version][npm-badge-url]][npm-url]
 [![Travis CI][travisci-badge-url]][travisci-url]
+[![Coveralls][coveralls-badge-url]][coveralls-url]
 
 [npm-badge-url]: https://badge.fury.io/js/bath.svg
 [npm-url]: https://www.npmjs.com/package/bath
 [travisci-badge-url]: https://travis-ci.org/bouzuya/bath.svg?branch=master
 [travisci-url]: https://travis-ci.org/bouzuya/bath
+[coveralls-url]: https://coveralls.io/github/bouzuya/bath
+[coveralls-badge-url]: https://img.shields.io/coveralls/github/bouzuya/bath.svg
 
 ## License
 
