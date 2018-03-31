@@ -1,5 +1,5 @@
 import { Test, run, test } from 'beater';
-import * as assert from 'power-assert';
+import assert from 'power-assert';
 import bathFn from '../src/';
 import * as bath from '../src/';
 import { tests as namesTests } from './names';
