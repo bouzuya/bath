@@ -5,10 +5,10 @@ export type PathTemplate = string;
 export type ParameterName = string;
 
 // { 'userId': /^\w+$/, 'messageId': /^\d+$/ }
-export type ParameterPatterns = { [parameterName: string]: RegExp; };
+export interface ParameterPatterns { [parameterName: string]: RegExp; }
 
 // { 'userId': 'john', 'messageId': '123' }
-export type Parameters = { [parameterName: string]: string; };
+export interface Parameters { [parameterName: string]: string; }
 
 // '/users/john/messages/123'
 export type Path = string;
@@ -36,5 +36,5 @@ export type Bath = (
 export type PathPattern = RegExp;
 export type ParameterPattern = NP[];
 export type NP = { name: string; } & { pattern: RegExp | null; };
-export type V = { value: string; };
+export interface V { value: string; }
 export type NPV = NP & V;

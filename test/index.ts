@@ -1,5 +1,5 @@
-import * as assert from 'power-assert';
 import { Test, run, test } from 'beater';
+import * as assert from 'power-assert';
 import bathFn from '../src/';
 import * as bath from '../src/';
 import { tests as namesTests } from './names';
@@ -24,13 +24,13 @@ const tests: Test[] = [
   }),
 
   test(category + 'bath(...).names & bath(...).path & bath(...).params', () => {
-    const data: [
+    const data: Array<[
       string,
       { [k: string]: RegExp; } | undefined,
       string[],
       string | null,
       {} | null
-    ][] = [
+    ]> = [
         ['/p', undefined, [], '/p', {}],
         ['/p', undefined, [], '/P', null],
         ['/p', undefined, [], '/p/', null],

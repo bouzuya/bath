@@ -3,8 +3,8 @@ import {
 } from './path-template-to-parameter-names';
 import {
   ParameterPattern,
-  PathTemplate,
-  ParameterPatterns
+  ParameterPatterns,
+  PathTemplate
 } from './types';
 
 // '/users/{id}', { 'id': /^\d+$/ }

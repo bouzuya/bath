@@ -1,10 +1,8 @@
 import {
   pathTempalteToParameterNames
 } from './_/path-template-to-parameter-names';
+import { toParameterPattern } from './_/to-parameter-pattern';
 import { ParameterPatterns, PathFn, PathTemplate } from './_/types';
-import {
-  toParameterPattern
-} from './_/to-parameter-pattern';
 
 const path = (
   template: PathTemplate,

@@ -1,5 +1,5 @@
-import * as assert from 'power-assert';
 import { Test, test } from 'beater';
+import * as assert from 'power-assert';
 import { params } from '../src/params';
 
 const category = '/params ';
