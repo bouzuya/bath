@@ -60,8 +60,9 @@
     "url": "https://github.com/bouzuya/bath.git"
   },
   "scripts": {
-    "build": "npm-run-all -s 'build:ts' 'build:es2015' 'copy'",
+    "build": "npm-run-all -s build:lint 'build:ts' 'build:es2015' 'copy'",
     "build:es2015": "babel --quiet -d .tmp/es5/ .tmp/es2015/",
+    "build:lint": "tslint --project tsconfig.json",
     "build:ts": "tsc",
     "clean": "rimraf '*.d.ts' '*.js' '.tmp' 'lib'",
     "copy": "npm-run-all -p 'copy:*'",
