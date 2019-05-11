@@ -38,7 +38,6 @@
     "proxyquire": "^2.1.0",
     "rimraf": "^2.6.3",
     "sinon": "^7.3.2",
-    "tap-dot-b": "^0.1.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5",
     "watch": "^1.0.2"
@@ -71,7 +70,7 @@
     "clean": "rimraf '*.d.ts' '*.js' .nyc_output .tmp coverage lib",
     "coveralls": "nyc report --reporter text-lcov | coveralls",
     "prepare": "npm-run-all -s 'clean' 'build'",
-    "test": "nyc --reporter lcov node .tmp/es5/test/index.js | tap-dot-b && nyc report",
+    "test": "nyc --reporter lcov node .tmp/es5/test/index.js && nyc report",
     "watch": "npm-run-all -p 'watch:*'",
     "watch:es2015": "npm run build:es2015 -- --watch",
     "watch:es5": "npm run build:es5 -- --watch",
