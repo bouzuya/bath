@@ -17,9 +17,6 @@
     "rootDir": "./",
     "sourceMap": false,
     "strict": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
     "target": "es2015"
   },
   "files": [
